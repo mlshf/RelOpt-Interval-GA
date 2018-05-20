@@ -1,4 +1,4 @@
-from GA import GA
+from GA import *
 import copy
 
 class HGA(GA):
@@ -30,9 +30,11 @@ class HGA(GA):
             self.algconf.mutPercent.cur = self.algconf.mutPercent.max
             self.algconf.Pmut.cur = self.algconf.Pmut.max
             return
-        self.currentAvg = reduce(lambda a, b: a + b.rel, self.population, 0)/len(self.population)
+        self.currentAvg = reduce(lambda a, b: a + (b.relL + b.relR)/2, self.population, 0)/len(self.population)
         if self.currentIter > 1:
-            bestDiff = (self.currentSolution.rel - self.prevSolution.rel)/self.currentSolution.rel
+            curr_relC = (self.currentSolution.relL + self.currentSolution.relR )/ 2
+            prev_relC = (self.prevSolution.relL + self.prevSolution.relR) / 2
+            bestDiff = (curr_relC - prev_relC)/curr_relC
             avgDiff = (self.currentAvg - self.prevAvg)/self.currentAvg
             if bestDiff >= 0.01:
                 self.algconf.crossPercent.cur = self.algconf.crossPercent.max

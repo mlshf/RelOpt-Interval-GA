@@ -2,8 +2,6 @@ from PyQt4.QtGui import QMainWindow, QFileDialog, QDialog, QMessageBox, qApp
 from PyQt4.QtCore import QTranslator
 from GUI.Windows.ui_MainWindow import Ui_MainWindow
 from GUI.ConfigDialog import ConfigDialog
-from GUI.MetamodelsRes import MetamodelsRes
-from GUI.Windows.ui_MetamodelsResDialog import Ui_MetamodelsResDialog
 from Common.SysConfig import SysConfig
 from GA.GAConfig import GAConfig
 from Common.Constraints import CostConstraints, TimeConstraints
@@ -13,35 +11,10 @@ from Common.Algorithm import Algorithm
 from Common.AlgConfig import AlgConfig
 from GA.GA import GA
 from GA.HGA import HGA
-from Greedy.Greedy import Greedy
+from GA.GA_optimistic import GA_optimistic
+from GA.GA_optimistic_left import GA_optimistic_left
 
 import xml.dom.minidom, time, os
-try:
-    from Metamodels.NeuralNetwork import NeuralNetwork
-    from Metamodels.Averaging import Averaging
-    from Metamodels.Polynomial import Polynomial
-    from Metamodels.KNearestNeighbours import KNearestNeighbours
-    from Metamodels.Svr import Svr
-    from Metamodels.Random import Random
-except:
-    print "Warning: Couldn't import metamodels"
-
-
-class MetamodelsResDialog(QDialog):
-    def __init__(self):
-        QDialog.__init__(self)
-        self.ui = Ui_MetamodelsResDialog()
-        self.ui.setupUi(self)
-
-    def Load(self, v):
-        self.ui.id.setText(v.id)
-        self.ui.speed.setText(str(v.speed))
-        self.ui.ram.setText(str(v.ram))
-
-    def SetResult(self, v):
-        v.id = self.ui.id.text()
-        v.speed = int(self.ui.speed.text())
-        v.ram = int(self.ui.ram.text())
 
 class MainWindow(QMainWindow):
     sysconfig = None
@@ -99,22 +72,6 @@ class MainWindow(QMainWindow):
         Algorithm.algconf = self.algconfig
         if Algorithm.algconf == None:
             Algorithm.algconf = AlgConfig()
-        if self.ui.use_metamodels.isChecked():
-            Algorithm.algconf.use_metamodel = True
-            modelidx = self.ui.metamodel.currentIndex()
-            if modelidx == 0:
-                Algorithm.algconf.metamodel = Averaging()
-            elif modelidx == 1:
-                Algorithm.algconf.metamodel = KNearestNeighbours(10) #TODO user should define this number
-            elif modelidx == 2:
-                Algorithm.algconf.metamodel = NeuralNetwork(self.sysconfig) #TODO add settings
-            elif modelidx == 3:
-                Algorithm.algconf.metamodel = Svr(self.sysconfig)
-            elif modelidx == 4:
-                Algorithm.algconf.metamodel = Polynomial(self.sysconfig)
-            elif modelidx == 5:
-                Algorithm.algconf.metamodel = Random()
-            Algorithm.algconf.pop_control_percent = float(self.ui.popControl.value())/100.0
 
         algidx = self.ui.algorithm.currentIndex()
         if algidx==0:
@@ -122,7 +79,9 @@ class MainWindow(QMainWindow):
         elif algidx==1:
             algorithm = HGA()
         elif algidx==2:
-            algorithm = Greedy()
+            algorithm = GA_optimistic()
+        elif algidx==3:
+            algorithm = GA_optimistic_left()
         Algorithm.result_filename = self.ui.result_filename.text()
         for i in range(self.ui.execNum.value()):
             if algorithm.algconf.metamodel:
@@ -239,29 +198,7 @@ class MainWindow(QMainWindow):
             self.constraints.append(TimeConstraints(c))
             self.ui.limittimes.setText(str(c).replace("]","").replace("[",""))
 
-    def use_metamodels_checked(self):
-        if not self.ui.use_metamodels.isChecked():
-            self.ui.metamodel.setEnabled(False)
-            self.ui.popControl.setEnabled(False)
-        else:
-            self.ui.metamodel.setEnabled(True)
-            self.ui.popControl.setEnabled(True)
 
-    def ShowMetamodelRes(self):
-        d = MetamodelsResDialog()
-        d.exec_()
-        if not d.result():
-            return
-        if d.ui.random.isChecked():
-            d1 = MetamodelsRes(self.best, True)
-        else:
-            d1 = MetamodelsRes(self.best, False)
-        d1.exec_()
-        try:
-            os.remove("sch" + str(os.getpid()) + ".xml")
-            os.remove("res" + str(os.getpid()) + ".xml")
-        except:
-            pass
 
 
 

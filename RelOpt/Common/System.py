@@ -1,8 +1,9 @@
 import random, os, xml.dom.minidom, sys
-from Common.Module import NONE, NVP01, NVP11, RB11, Module
+from Common.Module import NONE, NVP01, NVP11, RB11, HWRC20, Module
 from Common.Algorithm import Algorithm
 from Common.Schedule import Schedule, Link
 from Common.Constraints import TimeConstraints
+import itertools
 
 class System:
     '''
@@ -11,10 +12,14 @@ class System:
     constraints = []
     def __init__(self):
         self.modules = []
-        self.rel = -1.0
+        self.relL = -1.0
+        self.relR = -1.0
         self.cost = -1
         self.penalty = 1.0
         self.num = 0
+        self.hwrc_cost = -1
+        self.hwrc_relL = -1.0
+        self.hwrc_relR = -1.0
 
     def __eq__(self, other):
         if other == None:
@@ -36,12 +41,20 @@ class System:
         return res
 
     def __computeRel(self):
-        self.rel = 1.0
+        self.relL = 1.0
+        self.relR = 1.0
         for m in self.modules:
-            self.rel *= m.rel
+            self.relL *= m.relL
+            self.relR *= m.relR
 
     def __computeCost(self):
         self.cost = 0
+        hasHWRRC20 = False
+        for i in self.modules:
+            if i.__class__.__name__ == "HWRC20":
+                hasHWRRC20 = True
+        if hasHWRRC20:
+            self.cost += self.hwrc_cost
         for m in self.modules:
             self.cost += m.cost
 
@@ -87,7 +100,7 @@ class System:
         '''
         self.__computeCost()
         self.__computeRel()
-        self.__computeTime(use_metamodel, add)
+        #self.__computeTime(use_metamodel, add)
         self.ComputePenalty()
 
     def ComputePenalty(self):
@@ -121,17 +134,25 @@ class System:
                     self.modules.append(NVP01(i))
                 elif type == "nvp11":
                     self.modules.append(NVP11(i))
-                else:
+                elif type == "rb11":
                     self.modules.append(RB11(i))
+                else:
+                    self.modules.append(HWRC20(i))
             self.Update(False)
             if not checkConstraints or self.CheckConstraints():
                 break
 
     def __str__(self):
-        s = "Rel = %0.6f Cost = %d [" %(self.rel,self.cost)
-        for i in self.modules:
-            s+= str(i.time) + ","
-        s = s[:-1]+"]"  
+        s = "RelL = %0.6f RelR = %0.6f Cost = %d" %(self.relL, self.relR, self.cost)
+        for m in self.modules:
+            s += os.linesep
+            s += "Module: " + str(m.num) + " FTM: " + m.__class__.__name__ + " HW: "
+            s += str(m.hw) + " SW: " + str(m.sw)
+            s += " Reliability: [ " + str(m.relL) + " , " + str(m.relR) + " ]"
+        s += os.linesep
+        #for i in self.modules:
+        #    s+= str(i.time) + ","
+        #s = s[:-1]+"]"
         #print "\n"
         #for i in self.modules:
         #    s += str(i)
@@ -149,11 +170,11 @@ class System:
             dst = self.modules[l.dst.num]
             src_str = ""
             dst_str = ""
-            if isinstance(src, NONE) or isinstance(src, NVP01):
+            if isinstance(src, NONE) or isinstance(src, HWRC20) or isinstance(src, NVP01):
                 src_str = "t" + str(src.num)
             if isinstance(src, NVP11) or isinstance(src, RB11):
                 src_str = "t" + str(src.num) + "_snd"
-            if isinstance(dst, NONE) or isinstance(dst, NVP01):
+            if isinstance(dst, NONE) or isinstance(src, HWRC20)  or isinstance(dst, NVP01):
                 dst_str = "t" + str(dst.num)
             if isinstance(dst, NVP11) or isinstance(dst, RB11):
                 dst_str = "t" + str(dst.num) + "_rcv"

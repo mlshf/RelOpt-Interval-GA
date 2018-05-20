@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<schedule>
+	<task id="t0" num="0" processor="p0" time="18"/>
+	<task id="t1" num="0" processor="p1" time="4"/>
+	<task id="t2" num="0" processor="p2" time="18"/>
+	<task id="t3" num="0" processor="p3" time="17"/>
+	<task id="t4" num="0" processor="p4" time="1"/>
+	<task id="t5" num="0" processor="p5" time="1"/>
+	<link dst="" src="t0" vol="1"/>
+	<link dst="t2" src="t0" vol="2"/>
+	<link dst="t3" src="" vol="3"/>
+	<link dst="t3" src="t2" vol="1"/>
+	<link dst="t4" src="t3" vol="5"/>
+	<link dst="t5" src="t4" vol="2"/>
+</schedule>

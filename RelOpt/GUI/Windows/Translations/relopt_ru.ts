@@ -153,13 +153,13 @@
     </message>
     <message>
         <location filename="MainWindow.ui" line="50"/>
-        <source>Greedy Algorithm</source>
-        <translation>Жадный Алгоритм</translation>
+        <source>GA Optimistic</source>
+        <translation>Оптимистический Справа Эволюционный Алгоритм</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="55"/>
-        <source>Simulated Annealing</source>
-        <translation>Алгоритм Имитации Отжига</translation>
+        <source>GA Optimistic Left</source>
+        <translation>Оптимистический Слева Эволюционный Алгоритм</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="63"/>

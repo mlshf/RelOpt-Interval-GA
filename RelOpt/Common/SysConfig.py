@@ -1,13 +1,15 @@
 import xml.dom.minidom, random, math
 
 class Component:
-    def __init__(self, num, rel=0.0, cost=0):
+    def __init__(self, num, relL=0.0, relR=0.0, cost=0):
         self.num = num
-        self.rel = rel
+        self.relL = relL
+        self.relR = relR
         self.cost = cost
 
     def generateRandom(self, param):
-        self.rel = random.uniform(param["minrel"], param["maxrel"])
+        self.relL = random.uniform(param["minrel"], param["maxrel"])
+        self.relR = random.uniform(relL, param["maxrel"])
         self.cost = random.randint(param["mincost"], param["maxcost"])
 
 class ModConfig:
@@ -18,9 +20,14 @@ class ModConfig:
         self.times = []
         self.limittime = None
         self.num = -1
-        self.qrv = -1.0
-        self.qd = -1.0
-        self.qall = -1.0
+        self.qrvL = -1.0
+        self.qdL = -1.0
+        self.qallL = -1.0
+        self.qrvR = -1.0
+        self.qdR = -1.0
+        self.qallR = -1.0
+        self.hwrc_zone_num = -1
+        self.type = ""
         self.tvote = 0
         self.ttest = 0
         self.trecov = 0
@@ -35,6 +42,8 @@ class ModConfig:
         hw_num = len(self.hw)
         sw_num = len(self.sw)
         if "none" in self.tools:
+            res += hw_num * sw_num
+        if "hwrc20" in self.tools:
             res += hw_num * sw_num
         if "nvp01" in self.tools:
             res += hw_num * math.factorial(sw_num) /(6 * math.factorial(sw_num - 3))
@@ -78,14 +87,19 @@ class ModConfig:
             maxCost = max(maxCost, costs[size-1] + costs[size-2] + costs[size-3] + maxhw)
         if "none" in self.tools:
             maxCost = max(maxCost, costs[size-1] + maxhw)
+        if "hwrc20" in self.tools:
+            maxCost = max(maxCost, costs[size-1] + maxhw)
         return (minCost, maxCost)
 
     def LoadFromXmlNode(self, node):
         '''Loading from node with tag 'module'.'''
         self.num = int(node.getAttribute("num"))
-        self.qrv = float(node.getAttribute("qrv"))
-        self.qd = float(node.getAttribute("qd"))
-        self.qall = float(node.getAttribute("qall"))
+        self.qrvL = float(node.getAttribute("qrvL"))
+        self.qdL = float(node.getAttribute("qdL"))
+        self.qallL = float(node.getAttribute("qallL"))
+        self.qrvR = float(node.getAttribute("qrvR"))
+        self.qdR = float(node.getAttribute("qdR"))
+        self.qallR = float(node.getAttribute("qallR"))
         if (node.hasAttribute("limittime")):
             self.limittime=int(node.getAttribute("limittime"))
         self.sw = []
@@ -104,14 +118,18 @@ class ModConfig:
                 elif name=="rb11":
                     self.ttest = int(node.getAttribute("ttest"))
                     self.trecov = int(node.getAttribute("trecov"))
+                else:
+                    if name =="hwrc20":
+                        self.hwrc_zone_num = float(node.getAttribute("hwrczonenum"))
             else:
                 num = int(child.getAttribute("num"))
-                rel = float(child.getAttribute("rel"))
+                relL = float(child.getAttribute("relL"))
+                relR = float(child.getAttribute("relR"))
                 cost = int(child.getAttribute("cost"))
                 if child.nodeName == "sw":
-                    self.sw.append(Component(num,rel,cost))
+                    self.sw.append(Component(num, relL, relR, cost))
                 else:
-                    self.hw.append(Component(num,rel,cost))
+                    self.hw.append(Component(num, relL, relR, cost))
         '''[!!!] Sort lists in order not to search elements by field 'num',
         but to refer them by index.'''
         self.sw.sort(key=lambda x: x.num)
@@ -130,9 +148,14 @@ class ModConfig:
             self.times[swnum][hwnum] = time
             
     def generateRandom(self, param):
-        self.qrv = param["qrv"]
-        self.qd = param["qd"]
-        self.qall = param["qall"]
+        self.qrvL = param["qrvL"]
+        self.qdL = param["qdL"]
+        self.qallL = param["qallL"]
+        self.qrvR = param["qrvR"]
+        self.qdR = param["qdR"]
+        self.qallR = param["qallR"]
+        if param["hwrczonenum"]:
+            self.hwrc_zone_num = param["hwrczonenum"]
         self.tools = []
         if param["none"]:
             self.tools.append("none")
@@ -142,6 +165,8 @@ class ModConfig:
             self.tools.append("nvp11")
         if param["rb11"]:
             self.tools.append("rb11")
+        if param["hwrc20"]:
+            self.tools.append("hwrc20")
         self.tvote = param["tvote"]
         self.ttest = param["ttest"]
         self.trecov = param["trecov"]
@@ -237,6 +262,12 @@ class SysConfig:
             if root.tagName == "system":
                 if root.hasAttribute("limitcost"):
                     self.limitcost = int(root.getAttribute("limitcost"))
+                if root.hasAttribute("costhwrc"):
+                    self.hwrc_cost = int(root.getAttribute("costhwrc"))
+                if root.hasAttribute("qhwrcL"):
+                    self.hwrc_relL = float(root.getAttribute("qhwrcL"))
+                if root.hasAttribute("qhwrcR"):
+                    self.hwrc_relR = float(root.getAttribute("qhwrcR"))
                 for node in root.childNodes:
                     if isinstance(node, xml.dom.minidom.Text):
                         continue
@@ -284,15 +315,26 @@ class SysConfig:
         dom = xml.dom.minidom.Document()
         system = dom.createElement("system")
         system.setAttribute("limitcost", str(self.limitcost))
+        if self.hwrc_cost >= 0.0:
+            system.setAttribute("costhwrc", str(self.hwrc_cost))
+        if self.hwrc_relL >= 0.0:
+            system.setAttribute("qhwrcL", str(self.hwrc_relL))
+        if self.hwrc_relR >= 0.0:
+            system.setAttribute("qhwrcR", str(self.hwrc_relR))
         for mod in self.modules:
             m = dom.createElement("module")
             m.setAttribute("num", str(mod.num))
-            m.setAttribute("qrv", str(mod.qrv))
-            m.setAttribute("qd", str(mod.qd))
-            m.setAttribute("qall", str(mod.qall))
+            m.setAttribute("qrvL", str(mod.qrvL))
+            m.setAttribute("qdL", str(mod.qdL))
+            m.setAttribute("qallL", str(mod.qallL))
+            m.setAttribute("qrvR", str(mod.qrvR))
+            m.setAttribute("qdR", str(mod.qdR))
+            m.setAttribute("qallR", str(mod.qallR))
             m.setAttribute("tvote", str(mod.tvote))
             m.setAttribute("ttest", str(mod.ttest))
             m.setAttribute("trecov", str(mod.trecov))
+            if mod.hwrc_zone_num >= 0:
+                m.setAttribute("hwrczonenum", str(mod.hwrc_zone_num))
             if mod.limittime != None:
                 m.setAttribute("limittime", str(mod.limittime))
             for tool in mod.tools:
@@ -303,13 +345,15 @@ class SysConfig:
                 s = dom.createElement("sw")
                 s.setAttribute("num", str(sw.num))
                 s.setAttribute("cost", str(sw.cost))
-                s.setAttribute("rel", str(sw.rel))
+                s.setAttribute("relL", str(sw.relL))
+                s.setAttribute("relR", str(sw.relR))
                 m.appendChild(s)
             for hw in mod.hw:
                 h = dom.createElement("hw")
                 h.setAttribute("num", str(hw.num))
                 h.setAttribute("cost", str(hw.cost))
-                h.setAttribute("rel", str(hw.rel))
+                h.setAttribute("relL", str(hw.relL))
+                h.setAttribute("relR", str(hw.relR))
                 m.appendChild(h)
             for i in range(len(mod.times)):
                 for j in range(len(mod.times[i])):

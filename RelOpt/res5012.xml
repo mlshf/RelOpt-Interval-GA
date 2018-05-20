@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<results>
+	<task id="t0" processor="p0" time="5"/>
+	<task id="t1_rcv" processor="p1_1" time="6"/>
+	<task id="t1_1" processor="p1_1" time="29"/>
+	<task id="t1_snd" processor="p1_1" time="32"/>
+	<task id="t1_2" processor="p1_2" time="29"/>
+	<task id="t2" processor="p2" time="17"/>
+	<task id="t3_rcv" processor="p3_1" time="40"/>
+	<task id="t3_1" processor="p3_1" time="50"/>
+	<task id="t3_snd" processor="p3_1" time="60"/>
+	<task id="t3_2" processor="p3_2" time="45"/>
+	<task id="t3_3" processor="p3_3" time="50"/>
+	<task id="t4" processor="p4" time="63"/>
+	<task id="t5" processor="p5" time="64"/>
+</results>

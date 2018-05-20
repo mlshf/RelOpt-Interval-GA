@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<schedule>
+	<task id="t0" num="0" processor="p0" time="2"/>
+	<task id="t1_rcv" num="0" processor="p1_1" time="0"/>
+	<task id="t1_1" num="1" processor="p1_1" time="2"/>
+	<task id="t1_2" num="0" processor="p1_2" time="6"/>
+	<task id="t1_3" num="0" processor="p1_3" time="2"/>
+	<task id="t1_snd" num="2" processor="p1_1" time="5"/>
+	<task id="t2_rcv" num="0" processor="p2_1" time="0"/>
+	<task id="t2_1" num="1" processor="p2_1" time="18"/>
+	<task id="t2_2" num="0" processor="p2_2" time="18"/>
+	<task id="t2_snd" num="2" processor="p2_1" time="0"/>
+	<task id="t3" num="0" processor="p3" time="5"/>
+	<task id="t4" num="0" processor="p4" time="1"/>
+	<task id="t5" num="0" processor="p5" time="1"/>
+	<link dst="t1_2" src="t1_rcv" vol="1"/>
+	<link dst="t1_3" src="t1_rcv" vol="1"/>
+	<link dst="t1_snd" src="t1_2" vol="3"/>
+	<link dst="t1_snd" src="t1_3" vol="3"/>
+	<link dst="t2_2" src="t2_rcv" vol="2"/>
+	<link dst="t2_snd" src="t2_2" vol="1"/>
+	<link dst="t1_rcv" src="t0" vol="1"/>
+	<link dst="t2_rcv" src="t0" vol="2"/>
+	<link dst="t3" src="t1_snd" vol="3"/>
+	<link dst="t3" src="t2_snd" vol="1"/>
+	<link dst="t4" src="t3" vol="5"/>
+	<link dst="t5" src="t4" vol="2"/>
+</schedule>

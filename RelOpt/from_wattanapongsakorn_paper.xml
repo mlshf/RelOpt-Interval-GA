@@ -1,17 +1,18 @@
 <?xml version="1.0" ?>
-<system limitcost="1000">
-	<module limittime="10" num="0" qall="0.997" qd="0.998" qrv="0.998" trecov="10" ttest="2" tvote="5">
+<system limitcost="1000" costhwrc="50" qhwrcL="0.99" qhwrcR="0.999">
+	<module limittime="10" num="0" qallL="0.99" qdL="0.99" qrvL="0.99" qallR="0.997" qdR="0.998" qrvR="0.998" trecov="10" ttest="2" tvote="5" hwrczonenum="0">
 		<tool name="none"/>
 		<tool name="nvp01"/>
 		<tool name="nvp11"/>
 		<tool name="rb11"/>
-		<sw cost="30" num="0" rel="0.98"/>
-		<sw cost="10" num="1" rel="0.908"/>
-		<sw cost="20" num="2" rel="0.93"/>
-		<sw cost="30" num="3" rel="0.97"/>
-		<hw cost="30" num="0" rel="0.995"/>
-		<hw cost="15" num="1" rel="0.99"/>
-		<hw cost="10" num="2" rel="0.98"/>
+		<tool name="hwrc20"/>
+		<sw cost="30" num="0" relL="0.97" relR="0.98"/>
+		<sw cost="10" num="1" relL="0.90" relR="0.91"/>
+		<sw cost="20" num="2" relL="0.92" relR="0.94"/>
+		<sw cost="30" num="3" relL="0.96" relR="0.98"/>
+		<hw cost="30" num="0" relL="0.99" relR="0.995"/>
+		<hw cost="15" num="1" relL="0.985" relR="0.995"/>
+		<hw cost="10" num="2" relL="0.97" relR="0.98"/>
 		<time hwnum="0" swnum="0" t="1"/>
 		<time hwnum="1" swnum="0" t="2"/>
 		<time hwnum="2" swnum="0" t="2"/>
@@ -25,18 +26,19 @@
 		<time hwnum="1" swnum="3" t="6"/>
 		<time hwnum="2" swnum="3" t="2"/>
 	</module>
-	<module limittime="20" num="1" qall="0.997" qd="0.998" qrv="0.998" trecov="10" ttest="2" tvote="5">
+	<module limittime="20" num="1" qallL="0.99" qdL="0.99" qrvL="0.99" qallR="0.997" qdR="0.998" qrvR="0.998" trecov="10" ttest="2" tvote="5" hwrczonenum="0">
 		<tool name="none"/>
 		<tool name="nvp01"/>
 		<tool name="nvp11"/>
 		<tool name="rb11"/>
-		<sw cost="30" num="0" rel="0.975"/>
-		<sw cost="20" num="1" rel="0.908"/>
-		<sw cost="10" num="2" rel="0.887"/>
-		<sw cost="20" num="3" rel="0.968"/>
-		<hw cost="30" num="0" rel="0.995"/>
-		<hw cost="20" num="1" rel="0.992"/>
-		<hw cost="10" num="2" rel="0.97"/>
+		<tool name="hwrc20"/>
+		<sw cost="30" num="0" relL="0.97" relR="0.98"/>
+		<sw cost="20" num="1" relL="0.90" relR="0.91"/>
+		<sw cost="10" num="2" relL="0.88" relR="0.89"/>
+		<sw cost="20" num="3" relL="0.96" relR="0.97"/>
+		<hw cost="30" num="0" relL="0.99" relR="0.995"/>
+		<hw cost="20" num="1" relL="0.99" relR="0.992"/>
+		<hw cost="10" num="2" relL="0.96" relR="0.975"/>
 		<time hwnum="0" swnum="0" t="1"/>
 		<time hwnum="1" swnum="0" t="2"/>
 		<time hwnum="2" swnum="0" t="2"/>
@@ -50,18 +52,19 @@
 		<time hwnum="1" swnum="3" t="6"/>
 		<time hwnum="2" swnum="3" t="2"/>
 	</module>
-	<module limittime="30" num="2" qall="0.997" qd="0.998" qrv="0.998" trecov="10" ttest="2" tvote="5">
+	<module limittime="30" num="2" qallL="0.99" qdL="0.99" qrvL="0.99" qallR="0.997" qdR="0.998" qrvR="0.998" trecov="10" ttest="2" tvote="5" hwrczonenum="0">
 		<tool name="none"/>
 		<tool name="nvp01"/>
 		<tool name="nvp11"/>
 		<tool name="rb11"/>
-		<sw cost="20" num="0" rel="0.978"/>
-		<sw cost="30" num="1" rel="0.995"/>
-		<sw cost="20" num="2" rel="0.993"/>
-		<sw cost="30" num="3" rel="0.995"/>
-		<hw cost="30" num="0" rel="0.994"/>
-		<hw cost="20" num="1" rel="0.995"/>
-		<hw cost="100" num="2" rel="0.998"/>
+		<tool name="hwrc20"/>
+		<sw cost="20" num="0" relL="0.97" relR="0.98"/>
+		<sw cost="30" num="1" relL="0.99" relR="0.995"/>
+		<sw cost="20" num="2" relL="0.99" relR="0.993"/>
+		<sw cost="30" num="3" relL="0.99" relR="0.995"/>
+		<hw cost="30" num="0" relL="0.99" relR="0.994"/>
+		<hw cost="20" num="1" relL="0.99" relR="0.995"/>
+		<hw cost="100" num="2" relL="0.99" relR="0.998"/>
 		<time hwnum="0" swnum="0" t="1"/>
 		<time hwnum="1" swnum="0" t="2"/>
 		<time hwnum="2" swnum="0" t="2"/>
@@ -75,18 +78,19 @@
 		<time hwnum="1" swnum="3" t="6"/>
 		<time hwnum="2" swnum="3" t="2"/>
 	</module>
-	<module limittime="40" num="3" qall="0.997" qd="0.998" qrv="0.998" trecov="10" ttest="2" tvote="5">
+	<module limittime="40" num="3" qallL="0.99" qdL="0.99" qrvL="0.99" qallR="0.997" qdR="0.998" qrvR="0.998" trecov="10" ttest="2" tvote="5" hwrczonenum="0">
 		<tool name="none"/>
 		<tool name="nvp01"/>
 		<tool name="nvp11"/>
 		<tool name="rb11"/>
-		<sw cost="20" num="0" rel="0.985"/>
-		<sw cost="25" num="1" rel="0.98"/>
-		<sw cost="29" num="2" rel="0.992"/>
-		<sw cost="40" num="3" rel="0.996"/>
-		<hw cost="40" num="0" rel="0.996"/>
-		<hw cost="20" num="1" rel="0.988"/>
-		<hw cost="27" num="2" rel="0.99"/>
+		<tool name="hwrc20"/>
+		<sw cost="20" num="0" relL="0.98" relR="0.985"/>
+		<sw cost="25" num="1" relL="0.98" relR="0.985"/>
+		<sw cost="29" num="2" relL="0.99" relR="0.992"/>
+		<sw cost="40" num="3" relL="0.99" relR="0.996"/>
+		<hw cost="40" num="0" relL="0.99" relR="0.996"/>
+		<hw cost="20" num="1" relL="0.98" relR="0.988"/>
+		<hw cost="27" num="2" relL="0.98" relR="0.99"/>
 		<time hwnum="0" swnum="0" t="1"/>
 		<time hwnum="1" swnum="0" t="2"/>
 		<time hwnum="2" swnum="0" t="2"/>
@@ -100,16 +104,18 @@
 		<time hwnum="1" swnum="3" t="6"/>
 		<time hwnum="2" swnum="3" t="2"/>
 	</module>
-	<module limittime="50" num="4" qall="0.997" qd="0.998" qrv="0.998" trecov="0" ttest="0" tvote="0">
+	<module limittime="50" num="4" qallL="0.99" qdL="0.99" qrvL="0.99" qallR="0.997" qdR="0.998" qrvR="0.998" trecov="0" ttest="0" tvote="0" hwrczonenum="1">
 		<tool name="none"/>
-		<sw cost="0" num="0" rel="1.0"/>
-		<hw cost="10" num="0" rel="0.9985"/>
+		<tool name="hwrc20"/>
+		<sw cost="0" num="0" relL="0.99" relR="1.0"/>
+		<hw cost="10" num="0" relL="0.998" relR="0.9985"/>
 		<time hwnum="0" swnum="0" t="1"/>
 	</module>
-	<module limittime="60" num="5" qall="0.997" qd="0.998" qrv="0.998" trecov="0" ttest="0" tvote="0">
+	<module limittime="60" num="5" qallL="0.99" qdL="0.99" qrvL="0.99" qallR="0.997" qdR="0.998" qrvR="0.998" trecov="0" ttest="0" tvote="0" hwrczonenum="1">
 		<tool name="none"/>
-		<sw cost="0" num="0" rel="1.0"/>
-		<hw cost="10" num="0" rel="0.998"/>
+		<tool name="hwrc20"/>
+		<sw cost="0" num="0" relL="1.0" relR="1.0"/>
+		<hw cost="10" num="0" relL="0.99" relR="0.998"/>
 		<time hwnum="0" swnum="0" t="1"/>
 	</module>
 	<link dst="1" src="0" vol="1"/>
