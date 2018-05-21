@@ -5,7 +5,6 @@
 		<tool name="nvp01"/>
 		<tool name="nvp11"/>
 		<tool name="rb11"/>
-		<tool name="hwrc20"/>
 		<sw cost="30" num="0" relL="0.97" relR="0.98"/>
 		<sw cost="10" num="1" relL="0.90" relR="0.91"/>
 		<sw cost="20" num="2" relL="0.92" relR="0.94"/>
@@ -31,7 +30,6 @@
 		<tool name="nvp01"/>
 		<tool name="nvp11"/>
 		<tool name="rb11"/>
-		<tool name="hwrc20"/>
 		<sw cost="30" num="0" relL="0.97" relR="0.98"/>
 		<sw cost="20" num="1" relL="0.90" relR="0.91"/>
 		<sw cost="10" num="2" relL="0.88" relR="0.89"/>
@@ -57,7 +55,6 @@
 		<tool name="nvp01"/>
 		<tool name="nvp11"/>
 		<tool name="rb11"/>
-		<tool name="hwrc20"/>
 		<sw cost="20" num="0" relL="0.97" relR="0.98"/>
 		<sw cost="30" num="1" relL="0.99" relR="0.995"/>
 		<sw cost="20" num="2" relL="0.99" relR="0.993"/>
@@ -83,7 +80,6 @@
 		<tool name="nvp01"/>
 		<tool name="nvp11"/>
 		<tool name="rb11"/>
-		<tool name="hwrc20"/>
 		<sw cost="20" num="0" relL="0.98" relR="0.985"/>
 		<sw cost="25" num="1" relL="0.98" relR="0.985"/>
 		<sw cost="29" num="2" relL="0.99" relR="0.992"/>
@@ -106,14 +102,12 @@
 	</module>
 	<module limittime="50" num="4" qallL="0.99" qdL="0.99" qrvL="0.99" qallR="0.997" qdR="0.998" qrvR="0.998" trecov="0" ttest="0" tvote="0" hwrczonenum="1">
 		<tool name="none"/>
-		<tool name="hwrc20"/>
 		<sw cost="0" num="0" relL="0.99" relR="1.0"/>
 		<hw cost="10" num="0" relL="0.998" relR="0.9985"/>
 		<time hwnum="0" swnum="0" t="1"/>
 	</module>
 	<module limittime="60" num="5" qallL="0.99" qdL="0.99" qrvL="0.99" qallR="0.997" qdR="0.998" qrvR="0.998" trecov="0" ttest="0" tvote="0" hwrczonenum="1">
 		<tool name="none"/>
-		<tool name="hwrc20"/>
 		<sw cost="0" num="0" relL="1.0" relR="1.0"/>
 		<hw cost="10" num="0" relL="0.99" relR="0.998"/>
 		<time hwnum="0" swnum="0" t="1"/>

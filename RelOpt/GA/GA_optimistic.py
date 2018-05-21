@@ -94,7 +94,9 @@ class GA_optimistic(GA):
                 s_relC = (s.relL + s.relR) / 2
                 s_relW = (s.relR - s.relL)
                 if (s.CheckConstraints() and
-                        (self.currentSolution == None or s.relR > self.candidate.relR
+                        (self.currentSolution == None or
+                         self.candidate == None or
+                         s.relR > self.candidate.relR
                         )
                 ):
                     self.candidate = copy.deepcopy(s)

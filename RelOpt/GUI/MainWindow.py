@@ -13,6 +13,7 @@ from GA.GA import GA
 from GA.HGA import HGA
 from GA.GA_optimistic import GA_optimistic
 from GA.GA_optimistic_left import GA_optimistic_left
+from GA.GA_Moore import GA_Moore
 
 import xml.dom.minidom, time, os
 
@@ -53,7 +54,9 @@ class MainWindow(QMainWindow):
         f = open(unicode(self.ui.algconfname.text()), "r")
         dom = xml.dom.minidom.parse(f)
         root = dom.childNodes[0]
-        if self.ui.algorithm.currentIndex()==0 or self.ui.algorithm.currentIndex()==1:
+        if (self.ui.algorithm.currentIndex()==0 or self.ui.algorithm.currentIndex()==1 or
+                self.ui.algorithm.currentIndex() == 2 or self.ui.algorithm.currentIndex()==3 or
+                self.ui.algorithm.currentIndex() == 4):
             self.algconfig = GAConfig()
         self.algconfig.LoadFromXmlNode(root)
 
@@ -82,6 +85,8 @@ class MainWindow(QMainWindow):
             algorithm = GA_optimistic()
         elif algidx==3:
             algorithm = GA_optimistic_left()
+        elif algidx==4:
+            algorithm = GA_Moore()
         Algorithm.result_filename = self.ui.result_filename.text()
         for i in range(self.ui.execNum.value()):
             if algorithm.algconf.metamodel:
