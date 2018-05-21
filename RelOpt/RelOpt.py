@@ -10,6 +10,7 @@ from Common.Module import Module
 from Common.Algorithm import Algorithm
 from Common.AlgConfig import AlgConfig
 from GA.HGA import HGA
+from GA.HGA_Moore import HGA_Moore
 
 try:
     from Metamodels.NeuralNetwork import NeuralNetwork

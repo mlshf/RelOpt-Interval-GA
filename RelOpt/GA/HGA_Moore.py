@@ -1,4 +1,4 @@
-from GA import *
+from GA_Moore import *
 import copy
 
 class HGA_Moore(GA_Moore):
@@ -45,6 +45,8 @@ class HGA_Moore(GA_Moore):
                 self.currentAvgL = reduce(lambda a, b: a + b.relL, self.population, 0) / len(self.population)
                 self.currentAvgR = reduce(lambda a, b: a + b.relR, self.population, 0) / len(self.population)
                 self.prevAvgC = self.currentAvgC
+                self.prevAvgL = self.currentAvgL
+                self.prevAvgR = self.currentAvgR
         # else prevSollution != None
         # and of currentSolution != None
         elif self.currentSolution != None:
@@ -66,13 +68,13 @@ class HGA_Moore(GA_Moore):
                 else:
                     self.algconf.crossPercent.cur = self.algconf.crossPercent.min
                     self.algconf.Pcross.cur = self.algconf.Pcross.min
-                if avgCDiff >= 0.03:
+                if avgDiff >= 0.03:
                     self.algconf.mutPercent.cur = self.algconf.mutPercent.min
                     self.algconf.Pmut.cur = self.algconf.Pmut.min
-                elif avgCDiff > -0.03 and avgCDiff < 0.03:
+                elif avgDiff > -0.03 and avgDiff < 0.03:
                     self.algconf.mutPercent.cur = self.algconf.mutPercent.norm
                     self.algconf.Pmut.cur = self.algconf.Pmut.norm
-                elif avgCDiff <= -0.03:
+                elif avgDiff <= -0.03:
                     self.algconf.mutPercent.cur = self.algconf.mutPercent.max
                     self.algconf.Pmut.cur = self.algconf.Pmut.max
             self.prevSolution = copy.deepcopy(self.currentSolution)

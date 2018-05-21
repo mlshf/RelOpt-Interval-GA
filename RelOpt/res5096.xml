@@ -1,9 +1,0 @@
-<?xml version="1.0" ?>
-<results>
-	<task id="t0" processor="p0" time="20"/>
-	<task id="t1" processor="p1" time="23"/>
-	<task id="t2" processor="p2" time="24"/>
-	<task id="t3" processor="p3" time="31"/>
-	<task id="t4" processor="p4" time="34"/>
-	<task id="t5" processor="p5" time="35"/>
-</results>

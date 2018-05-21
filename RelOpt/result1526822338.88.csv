@@ -1,7 +1,0 @@
-Limit Cost:;1000;
-Limit Times:;[10, 20, 30, 40, 50, 60]
-Num;RelL;RelR;Cost;Times;IterNum;Time(sec);GetTime_num;Sim_num;
-0;0.877660027069;0.933740435252;427;[4,7,8,40,43,44];81;397.935000181;4837;4837;
-;
-Min relL:;Max relL:;Avg relL:;Min relR:;Max relR:;Avg relR:;Min iter:;Max iter:;Avg iter:;Min tc:;Max tc:;Avg tc:;Min sc:;Max sc:;Avg sc:;Min time:;Max time:;Avg time:;
-0.877660027069;0.877660027069;0.877660027069;0.933740435252;0.933740435252;0.0;81;81;81;4837;4837;4837;4837;4837;4837;397.935000181;397.935000181;397.935000181;
