@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<system limitcost="1000" costhwrc="50" qhwrcL="0.99" qhwrcR="0.999">
+	<module limittime="10" num="0" qallL="0.99" qdL="0.99" qrvL="0.99" qallR="0.997" qdR="0.998" qrvR="0.998" hwrczonenum="0">
+		<tool name="none"/>
+		<tool name="nvp01"/>
+		<tool name="nvp11"/>
+		<tool name="rb11"/>
+		<tool name="hwrc20"/>
+		<sw cost="30" num="0" relL="0.97" relR="0.98"/>
+		<sw cost="10" num="1" relL="0.90" relR="0.91"/>
+		<sw cost="20" num="2" relL="0.92" relR="0.94"/>
+		<sw cost="30" num="3" relL="0.96" relR="0.98"/>
+		<hw cost="30" num="0" relL="0.99" relR="0.995"/>
+		<hw cost="15" num="1" relL="0.985" relR="0.995"/>
+		<hw cost="10" num="2" relL="0.97" relR="0.98"/>
+	</module>
+	<module limittime="20" num="1" qallL="0.99" qdL="0.99" qrvL="0.99" qallR="0.997" qdR="0.998" qrvR="0.998" hwrczonenum="0">
+		<tool name="none"/>
+		<tool name="nvp01"/>
+		<tool name="nvp11"/>
+		<tool name="rb11"/>
+		<tool name="hwrc20"/>
+		<sw cost="30" num="0" relL="0.97" relR="0.98"/>
+		<sw cost="20" num="1" relL="0.90" relR="0.91"/>
+		<sw cost="10" num="2" relL="0.88" relR="0.89"/>
+		<sw cost="20" num="3" relL="0.96" relR="0.97"/>
+		<hw cost="30" num="0" relL="0.99" relR="0.995"/>
+		<hw cost="20" num="1" relL="0.99" relR="0.992"/>
+		<hw cost="10" num="2" relL="0.96" relR="0.975"/>
+	</module>
+	<module limittime="30" num="2" qallL="0.99" qdL="0.99" qrvL="0.99" qallR="0.997" qdR="0.998" qrvR="0.998" hwrczonenum="0">
+		<tool name="none"/>
+		<tool name="nvp01"/>
+		<tool name="nvp11"/>
+		<tool name="rb11"/>
+		<tool name="hwrc20"/>
+		<sw cost="20" num="0" relL="0.97" relR="0.98"/>
+		<sw cost="30" num="1" relL="0.99" relR="0.995"/>
+		<sw cost="20" num="2" relL="0.99" relR="0.993"/>
+		<sw cost="30" num="3" relL="0.99" relR="0.995"/>
+		<hw cost="30" num="0" relL="0.99" relR="0.994"/>
+		<hw cost="20" num="1" relL="0.99" relR="0.995"/>
+		<hw cost="100" num="2" relL="0.99" relR="0.998"/>
+	</module>
+	<module limittime="40" num="3" qallL="0.99" qdL="0.99" qrvL="0.99" qallR="0.997" qdR="0.998" qrvR="0.998" hwrczonenum="0">
+		<tool name="none"/>
+		<tool name="nvp01"/>
+		<tool name="nvp11"/>
+		<tool name="rb11"/>
+		<tool name="hwrc20"/>
+		<sw cost="20" num="0" relL="0.98" relR="0.985"/>
+		<sw cost="25" num="1" relL="0.98" relR="0.985"/>
+		<sw cost="29" num="2" relL="0.99" relR="0.992"/>
+		<sw cost="40" num="3" relL="0.99" relR="0.996"/>
+		<hw cost="40" num="0" relL="0.99" relR="0.996"/>
+		<hw cost="20" num="1" relL="0.98" relR="0.988"/>
+		<hw cost="27" num="2" relL="0.98" relR="0.99"/>
+	</module>
+	<module limittime="50" num="4" qallL="0.99" qdL="0.99" qrvL="0.99" qallR="0.997" qdR="0.998" qrvR="0.998" hwrczonenum="1">
+		<tool name="none"/>
+		<tool name="hwrc20"/>
+		<sw cost="0" num="0" relL="0.99" relR="1.0"/>
+		<hw cost="10" num="0" relL="0.998" relR="0.9985"/>
+	</module>
+	<module limittime="60" num="5" qallL="0.99" qdL="0.99" qrvL="0.99" qallR="0.997" qdR="0.998" qrvR="0.998" hwrczonenum="1">
+		<tool name="none"/>
+		<tool name="hwrc20"/>
+		<sw cost="0" num="0" relL="1.0" relR="1.0"/>
+		<hw cost="10" num="0" relL="0.99" relR="0.998"/>
+	</module>
+</system>

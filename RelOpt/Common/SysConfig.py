@@ -113,13 +113,7 @@ class ModConfig:
             if child.nodeName == "tool":
                 name = child.getAttribute("name")
                 self.tools.append(name)
-                if name=="nvp01" or name=="nvp11":
-                    self.tvote = int(node.getAttribute("tvote"))
-                elif name=="rb11":
-                    self.ttest = int(node.getAttribute("ttest"))
-                    self.trecov = int(node.getAttribute("trecov"))
-                else:
-                    if name =="hwrc20":
+                if name =="hwrc20":
                         self.hwrc_zone_num = float(node.getAttribute("hwrczonenum"))
             else:
                 num = int(child.getAttribute("num"))

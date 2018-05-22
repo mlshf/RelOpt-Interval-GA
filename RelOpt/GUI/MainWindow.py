@@ -15,7 +15,6 @@ from GA.GA_optimistic import GA_optimistic
 from GA.GA_optimistic_left import GA_optimistic_left
 from GA.GA_Moore import GA_Moore
 from GA.HGA_Moore import HGA_Moore
-from GA.FullSearch import FullSearch
 import xml.dom.minidom, time, os
 
 class MainWindow(QMainWindow):
@@ -46,10 +45,6 @@ class MainWindow(QMainWindow):
         self.constraints = []
         if self.sysconfig.limitcost != None:
             self.constraints.append(CostConstraints(self.sysconfig.limitcost))
-        if self.ui.checktime_yes.isChecked():
-            c = self.sysconfig.getLimitTimes()     
-            if c != None:
-                self.constraints.append(TimeConstraints(c))
 
     def LoadAlgConf(self):
         f = open(unicode(self.ui.algconfname.text()), "r")
@@ -59,8 +54,7 @@ class MainWindow(QMainWindow):
                 self.ui.algorithm.currentIndex() == 2 or self.ui.algorithm.currentIndex()==3 or
                 self.ui.algorithm.currentIndex() == 4 or self.ui.algorithm.currentIndex() == 5):
             self.algconfig = GAConfig()
-        if self.ui.algorithm.currentIndex() != 6:
-            self.algconfig.LoadFromXmlNode(root)
+        self.algconfig.LoadFromXmlNode(root)
 
     def Run(self):
         if self.sysconfig == None:
@@ -91,8 +85,6 @@ class MainWindow(QMainWindow):
             algorithm = GA_Moore()
         elif algidx==5:
             algorithm = HGA_Moore()
-        elif algidx==6:
-            algorithm = FullSearch()
         Algorithm.result_filename = self.ui.result_filename.text()
         for i in range(self.ui.execNum.value()):
             if algorithm.algconf.metamodel:
@@ -120,14 +112,6 @@ class MainWindow(QMainWindow):
         self.ui.maxtime.setText(str(timerange[1]).replace("]","").replace("[",""))
         self.ui.mintime.setText(str(timerange[0]).replace("]","").replace("[",""))
         self.ui.limitcost.setText(str(self.sysconfig.limitcost) if self.sysconfig.limitcost != None else "")
-        l = []
-        for constr in self.constraints:
-            if isinstance(constr,TimeConstraints):
-                l = constr.limitTimes
-        if l == []:
-            self.ui.limittimes.setText("")
-        else:
-            self.ui.limittimes.setText(str(l).replace("]","").replace("[",""))
 
     def OpenAlgConf(self):
         name = unicode(QFileDialog.getOpenFileName(filter=self.algConfigFilter))
