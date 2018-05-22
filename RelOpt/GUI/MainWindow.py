@@ -15,7 +15,7 @@ from GA.GA_optimistic import GA_optimistic
 from GA.GA_optimistic_left import GA_optimistic_left
 from GA.GA_Moore import GA_Moore
 from GA.HGA_Moore import HGA_Moore
-
+from GA.FullSearch import FullSearch
 import xml.dom.minidom, time, os
 
 class MainWindow(QMainWindow):
@@ -59,7 +59,8 @@ class MainWindow(QMainWindow):
                 self.ui.algorithm.currentIndex() == 2 or self.ui.algorithm.currentIndex()==3 or
                 self.ui.algorithm.currentIndex() == 4 or self.ui.algorithm.currentIndex() == 5):
             self.algconfig = GAConfig()
-        self.algconfig.LoadFromXmlNode(root)
+        if self.ui.algorithm.currentIndex() != 6:
+            self.algconfig.LoadFromXmlNode(root)
 
     def Run(self):
         if self.sysconfig == None:
@@ -90,13 +91,15 @@ class MainWindow(QMainWindow):
             algorithm = GA_Moore()
         elif algidx==5:
             algorithm = HGA_Moore()
+        elif algidx==6:
+            algorithm = FullSearch()
         Algorithm.result_filename = self.ui.result_filename.text()
         for i in range(self.ui.execNum.value()):
             if algorithm.algconf.metamodel:
                 algorithm.algconf.metamodel.Clear()
             algorithm.Run()
-            algorithm.PrintStats()
             self.best = algorithm.currentSolution
+        algorithm.PrintStats()
         try:
             os.remove("sch" + str(os.getpid()) + ".xml")
             os.remove("res" + str(os.getpid()) + ".xml")

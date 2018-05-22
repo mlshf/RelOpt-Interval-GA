@@ -45,6 +45,7 @@ class Statistics:
         sumtime = 0
         for e in self.execs:
             sumRelL += e.solution.relL
+            sumRelR += e.solution.relR
             sumIter += e.iter
             sumtc += e.timecounts
             sumsc += e.simcounts

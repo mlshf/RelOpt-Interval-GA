@@ -12,16 +12,6 @@ from Common.AlgConfig import AlgConfig
 from GA.HGA import HGA
 from GA.HGA_Moore import HGA_Moore
 
-try:
-    from Metamodels.NeuralNetwork import NeuralNetwork
-    from Metamodels.Averaging import Averaging
-    from Metamodels.Polynomial import Polynomial
-    from Metamodels.KNearestNeighbours import KNearestNeighbours
-    from Metamodels.Svr import Svr
-    from Metamodels.Random import Random
-except:
-    print "Warning: Couldn't import metamodels"
-
 def Console(argv):
     print "Warning: Do not use command-line interface!"
     _algconf = argv[1]

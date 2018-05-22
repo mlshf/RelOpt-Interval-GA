@@ -88,7 +88,7 @@ class GA(Algorithm):
         self.population.sort(cmp=interval_cmp_pessimistic_extended, reverse=True)
         while not self._checkStopCondition():
             self.Step()
-            print self.currentIter, self.currentSolution
+            #print self.currentIter, self.currentSolution
         print "Best solution: ", self.currentSolution
         print "--------------------------------------\n"
         Algorithm.time = time.time() - Algorithm.time

@@ -17,9 +17,9 @@ class GA_optimistic_left(GA):
         self.population.sort(key=interval_key_optimistic_left, reverse=True)
         while not self._checkStopCondition():
             self.Step()
-            print self.currentIter, self.currentSolution
-        print "Best solution: ", self.currentSolution
-        print "--------------------------------------\n"
+            #print self.currentIter, self.currentSolution
+        #print "Best solution: ", self.currentSolution
+        #print "--------------------------------------\n"
         Algorithm.time = time.time() - Algorithm.time
         self.stat.AddExecution(Execution(self.currentSolution, self.currentIter, Algorithm.time, Algorithm.timecounts, Algorithm.simcounts))
 

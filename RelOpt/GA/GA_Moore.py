@@ -101,9 +101,9 @@ class GA_Moore(GA):
         self.population.sort(cmp=interval_cmp_moore, reverse=True)
         while not self._checkStopCondition():
             self.Step()
-            print self.currentIter, self.currentSolution
-        print "Best solution: ", self.currentSolution
-        print "--------------------------------------\n"
+            #print self.currentIter, self.currentSolution
+        #print "Best solution: ", self.currentSolution
+        #print "--------------------------------------\n"
         Algorithm.time = time.time() - Algorithm.time
         self.stat.AddExecution(Execution(self.currentSolution, self.currentIter, Algorithm.time, Algorithm.timecounts,
                                          Algorithm.simcounts))

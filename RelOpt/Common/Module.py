@@ -48,7 +48,7 @@ class NONE(Module):
         schedule.tasks.append(Task("t"+str(self.num), self.execTime, "p"+str(self.num), 0))
 
     def _computeRel(self):
-        self.relL = self.conf.modules[self.num].hw[self.hw[0]].relL * self.conf.modules[self.num].sw[self.sw[0]].relL
+        self.relL = self.conf.modules[self.num].hw[self.hw[0]].relL * self.conf.modules[self.num].sw[self.sw[0]].relR
         self.relR = self.conf.modules[self.num].hw[self.hw[0]].relR * self.conf.modules[self.num].sw[self.sw[0]].relR
 
     def _computeCost(self):
@@ -429,8 +429,8 @@ class HWRC20(Module):
         else:
             P_post_reconf_1L = 1.0
             P_post_reconf_1R = 1.0
-        PL = PhwL * (PhwrcL * QhwrcL * P_post_reconf_1L)
-        PR = PhwR * (PhwrcR * QhwrcR * P_post_reconf_1R)
+        PL = PhwL * (PhwrcL + QhwrcL * P_post_reconf_1L)
+        PR = PhwR * (PhwrcR + QhwrcR * P_post_reconf_1R)
         QL = 1 - PR
         QR = 1 - PL
         self.relL = QL * QswL

@@ -17,3 +17,5 @@ def genEvent(dict):
     for p in range(1,len(points)):
         if points[p-1] <= i < points[p]:
             return dict.keys()[p-1]
+        else:
+            return dict.keys()[len(points)-2]
